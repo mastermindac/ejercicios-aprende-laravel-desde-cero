@@ -1,48 +1,100 @@
 <?php
 
-namespace App\Models;
+namespace App\Http\Controllers;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use App\Models\Product;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
-class User extends Authenticatable
+class ProductController extends Controller
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
+    protected $productRules = [
+        'name' => 'required|string|max:64',
+        'description' => 'required|string|max:512',
+        'price' => 'required|numeric|gt:0',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * Display a listing of the resource.
      *
-     * @var array<int, string>
+     * @return \Illuminate\Http\Response
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    public function index()
+    {
+        return response()->json(['products' => auth()->user()->products]);
+    }
 
     /**
-     * The attributes that should be cast.
+     * Store a newly created resource in storage.
      *
-     * @var array<string, string>
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function store(Request $request)
+    {
+        $data = $request->validate($this->productRules);
 
-    public function products() {
-        return $this->hasMany(Product::class);
+        $product = auth()->user()->products()->create($data);
+
+        Log::info('Product created', ['product' => $product]);
+
+        return response()->json([
+            'message' => 'Product created successfully',
+            'product' => $product,
+        ]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Product $product)
+    {
+        $this->authorize('view', $product);
+
+        return response()->json(compact('product'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Product $product)
+    {
+        $this->authorize('update', $product);
+
+        $data = $request->validate($this->productRules);
+
+        $product->update($data);
+
+        return response()->json([
+            'message' => 'Product updated successfully',
+            'product' => $product,
+        ]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Product $product)
+    {
+        $this->authorize('delete', $product);
+
+        $product->delete();
+        Log::info('Product deleted', ['product' => $product]);
+        
+
+        return response()->json([
+            'message' => 'Product deleted successfully',
+            'product' => $product
+        ]);
     }
 }
