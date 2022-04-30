@@ -119,3 +119,7 @@ Route::post('/ejercicio3', function (Request $request) {
 
     return response();
 });
+
+// Ejercicio 4
+
+Route::resource('products', ProductController::class);
