@@ -36,6 +36,8 @@ class ProductController extends Controller
 
         $product = auth()->user()->products()->create($data);
 
+        Log::info('Product created', ['product' => $product]);
+
         return response()->json([
             'message' => 'Product created successfully',
             'product' => $product,
@@ -87,6 +89,8 @@ class ProductController extends Controller
         $this->authorize('delete', $product);
 
         $product->delete();
+        Log::info('Product deleted', ['product' => $product]);
+        
 
         return response()->json([
             'message' => 'Product deleted successfully',
