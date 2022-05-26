@@ -49,11 +49,19 @@ Route::post('/ejercicio2/b', function (Request $request) {
 // Ejercicio 2 C
 
 route::post('/ejercicio2/c', function (Request $request){
-    if(!empty($request->get("discount"))){
-        $discountCode = $request->get("discount"); 
-        $discount = intval(trim($discountCode, "SAVE"));
-    }else{
+    $validDiscountCodes = array("SAVE5", "SAVE10", "SAVE15");
+    // Check if it´s a valid discount code
+    $discountCode = $request->get("discount");
+    $isDicountValid = false;
+    for($i = 0; $i < count($validDiscountCodes); $i++){
+        if($validDiscountCodes[$i] == $discountCode){
+            $isDicountValid = true;
+        }
+    }
+    if(empty($request->get("discount") && $isDicountValid)){
         $discount = 0;
+    }else{
+        $discount = intval(trim($discountCode, "SAVE"));
     }
     $price = $request->price;
     if($discount > 0){
