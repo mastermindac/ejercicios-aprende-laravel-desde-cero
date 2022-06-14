@@ -29,3 +29,19 @@ Route::get('/ejercicio1', function () {
 Route::post('/ejercicio1', function () {
     return "POST OK";
 });
+
+// Remplaza todas las representaciones, lo elimina
+Route::put('/ejercicio1', function () {
+    return "PUT OK";
+});
+
+// Modificaciones parciales a un recurso
+Route::patch('/ejercicio1', function () {
+    return "PATCH OK";
+});
+
+//Borra un recurso en especifico
+Route::delete('/ejercicio1', function () {
+
+    return "DELETE OK";
+});
