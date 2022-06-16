@@ -29,3 +29,15 @@ Route::get('/ejercicio1', function () {
 Route::post('/ejercicio1', function () {
     return "POST OK";
 });
+
+Route::PUT('/ejercicio1', function () {
+    return "PUT OK";
+});
+
+Route::PATCH('/ejercicio1', function () {
+    return "PATCH OK";
+});
+
+Route::DELETE('/ejercicio1', function () {
+    return "DELETE OK";
+});
