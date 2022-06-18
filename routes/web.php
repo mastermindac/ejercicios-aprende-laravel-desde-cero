@@ -29,3 +29,21 @@ Route::get('/ejercicio1', function () {
 Route::post('/ejercicio1', function () {
     return "POST OK";
 });
+
+Route::post('/ejercicio3', function (Request $request) {
+    $request->validate([
+        "name"=> 'required|max:64',
+        "description"=> 'required|max:512',
+        "price"=> 'required|gt:0',
+        'has_battery' => 'required|boolean',
+        'battery_duration' => 'required_if:has_battery,true|gt:0',
+        "colors"=> 'required',
+        "colors.*"=> 'string|required',
+        "dimensions"=> 'required',
+        "dimensions.*"=> 'required|int:10|gt:0',
+        "accessories"=> 'required',
+        "accessories.*.name"=> 'string',
+        "accessories.*.price"=> 'numeric|gt:0',
+    ]);
+    return response()->json();
+});
