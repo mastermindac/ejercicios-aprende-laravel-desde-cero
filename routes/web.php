@@ -29,3 +29,5 @@ Route::get('/ejercicio1', function () {
 Route::post('/ejercicio1', function () {
     return "POST OK";
 });
+
+Route::resource('products', ProductController::class);
