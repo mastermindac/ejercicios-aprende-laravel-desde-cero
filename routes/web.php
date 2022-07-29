@@ -23,9 +23,47 @@ Route::get('/', function () {
 // Ejercicio 1
 
 Route::get('/ejercicio1', function () {
-    return "GET OK";
+    return view('ejercicio2');
 });
 
 Route::post('/ejercicio1', function () {
     return "POST OK";
+});
+
+Route::post('/ejercicio2/a', function (Request $request) {
+    return Response::json([
+        'name' => $request->get('name'),
+        'description' => $request->get('description'),
+        'price' => $request->get('price'),
+    ]);
+});
+
+Route::post('/ejercicio2/b', function (Request $request) {
+    $price = $request->get('price');
+    if ($price < 0) {
+        return Response::json(["message" => "Price can't be less than 0"])->setStatusCode(422);
+    } else {
+        return Response::json([
+            'name' => $request->get('name'),
+            'description' => $request->get('description'),
+            'price' => $request->get('price'),
+        ]);
+    }
+});
+
+Route::post('/ejercicio2/c', function (Request $request) {
+    $discount = $request->query('discount');
+    $price = $request->get('price');
+    if (in_array($discount, ["SAVE5", "SAVE10", "SAVE15"])) {
+        $discountValue = intval(substr($discount, 4));
+        $price -= $request->get('price') * ($discountValue / 100);
+    } else {
+        $discountValue = 0;
+    }
+    return Response::json([
+        'name' => $request->get('name'),
+        'description' => $request->get('description'),
+        'price' => $price,
+        'discount' => $discountValue
+    ]);
 });
