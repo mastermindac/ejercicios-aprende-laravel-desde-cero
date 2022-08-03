@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 
@@ -29,3 +30,6 @@ Route::get('/ejercicio1', function () {
 Route::post('/ejercicio1', function () {
     return "POST OK";
 });
+
+
+Route::resource('products', ProductController::class)->only(['store', 'destroy']);
