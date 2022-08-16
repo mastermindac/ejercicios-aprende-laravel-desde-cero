@@ -47,19 +47,19 @@ Route::post('/ejercicio2/b', function () {
     }
 });
 
-Route::post('/ejercicio2/c?discount=SAVE5', function (Request $request) {
+Route::post('/ejercicio2/c', function (Request $request) {
 
     if ($request->query('discount') === "SAVE5") {
         return Response::json(["name"=>"Keyboard",
         "description"=>"Mechanical RGB keyboard",
         "price"=>190,
         "discount"=>5]);
-    } elseif ($request->query('discount') === "SAVE10") {
+    } else if ($request->query('discount') === "SAVE10") {
         return Response::json(["name"=>"Keyboard",
         "description"=>"Mechanical RGB keyboard",
         "price"=>180,
         "discount"=>10]);
-    } elseif ($request->query('discount') === "SAVE15") {
+    } else if ($request->query('discount') === "SAVE15") {
         return Response::json(["name"=>"Keyboard",
         "description"=>"Mechanical RGB keyboard",
         "price"=>170,
