@@ -26,6 +26,19 @@ Route::get('/ejercicio1', function () {
     return "GET OK";
 });
 
+Route::put('/ejercicio1', function () {
+    return "PUT OK";
+});
+
 Route::post('/ejercicio1', function () {
     return "POST OK";
 });
+Route::patch('/ejercicio1', function () {
+    return "PATCH OK";
+});
+
+Route::delete('/ejercicio1', function () {
+    return "DELETE OK";
+});
+
+
