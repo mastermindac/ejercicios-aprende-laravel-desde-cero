@@ -41,3 +41,14 @@ Route::delete('/ejercicio1', function () {
 Route::patch('/ejercicio1', function() {
     return "PATCH OK";
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get("/contact", fn() => Response::view('contact'));
+
+Route::post('/contact', function(Request $request) {
+    dd($request);
+});
