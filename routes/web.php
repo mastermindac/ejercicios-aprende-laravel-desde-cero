@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
@@ -50,5 +52,18 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get("/contact", fn() => Response::view('contact'));
 
 Route::post('/contact', function(Request $request) {
-    dd($request);
+    // dd($request);
+    $data = $request->all();
+
+    //Es lo mismo que lo de descomentado de abajo
+    // $contact = new Contact();
+    // $contact->name = $data['name'];
+    // $contact->phone_number = $data['phone_number'];
+    // $contact->save();
+
+    Contact::create($data);
+
 });
+
+Route::get('/contacts/create', [ContactController::class, 'create'])->name('contacts.create');
+Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
