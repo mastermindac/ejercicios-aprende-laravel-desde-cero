@@ -25,7 +25,7 @@ class ContactController extends Controller
      */
     public function create()
     {
-        return view('contact');
+        return view('contacts.create');
     }
 
     /**
@@ -36,20 +36,26 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-       // Contact::create($request->all());
-       // return response("Contact created");
-// dd("entra");
-        $request->validate([
+        // Contact::create($request->all());
+        // return response("Contact created");
+        // dd("entra");
+        $data = $request->validate([
             'name' => 'required',
             'email' => ['required', 'email'],
             'phone_number' => ['required', 'digits:9'],
             'age' => 'required|numeric|min:1|max:25',
         ]);
 
+        Contact::create($data);
+
+        return redirect()->route('home');
+
         // if (is_null($request->get('name'))) {
         //     return back()->withErrors(['name' => 'Este campo es required']);
         // }
-        
+
+
+
         if (is_null($request->get('name'))) {
 
             //dd( $request->get('name') );
@@ -80,12 +86,12 @@ class ContactController extends Controller
             //     'name'=> 'Esto es requerido',
             // ]);
             return back()->withErrors([
-                'name'=> 'Esto es requerido',
+                'name' => 'Esto es requerido',
             ]);
         }
 
 
-        return response ("contact created");
+        return response("contact created");
     }
 
     /**
@@ -105,9 +111,11 @@ class ContactController extends Controller
      * @param  \App\Models\Contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function edit(Contact $contact)
+    public function edit(int $contactId)
     {
-        //
+        $contact = Contact::findOrFail($contactId);
+        // dd(request()->route('contact'));
+        return view('contacts.update', ['contact' => $contact]);
     }
 
     /**
@@ -119,7 +127,16 @@ class ContactController extends Controller
      */
     public function update(Request $request, Contact $contact)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'email' => ['required', 'email'],
+            'phone_number' => ['required', 'digits:9'],
+            'age' => 'required|numeric|min:1|max:25',
+        ]);
+
+        $contact->update($data);
+
+        return redirect(route('home'));
     }
 
     /**
