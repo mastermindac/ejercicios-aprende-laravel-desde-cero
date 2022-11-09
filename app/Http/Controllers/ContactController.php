@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response as HttpResponse;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Response;
 
 class ContactController extends Controller
@@ -122,6 +124,19 @@ class ContactController extends Controller
      */
     public function show(Contact $contact)
     {
+
+        // if ($contact->user_id !== auth()->id()) {
+        //     abort(HttpResponse::HTTP_FORBIDDEN);
+        // }
+
+        // abort_if( $contact->user_id !== auth()->id(), 403 );
+
+        // if (! Gate::allows('show-contact', $contact)) {
+        //     abort(403);
+        // }
+
+        Gate::authorize('show-contact', $contact);
+
         return view('contacts.show', compact('contact'));
     }
 
