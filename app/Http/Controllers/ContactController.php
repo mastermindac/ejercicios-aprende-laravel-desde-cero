@@ -135,7 +135,9 @@ class ContactController extends Controller
         //     abort(403);
         // }
 
-        Gate::authorize('show-contact', $contact);
+        //Gate::authorize('show-contact', $contact);
+
+        $this->authorize('view', $contact);
 
         return view('contacts.show', compact('contact'));
     }
@@ -169,6 +171,8 @@ class ContactController extends Controller
             'age' => 'required|numeric|min:1|max:25',
         ]);
 
+        $this->authorize('update', $contact);
+
         $contact->update($data);
 
         return redirect(route('home'));
@@ -182,6 +186,8 @@ class ContactController extends Controller
      */
     public function destroy(Contact $contact)
     {
+        $this->authorize('delete', $contact);
+
         $contact->delete();
         return redirect( route('home') );
     }
