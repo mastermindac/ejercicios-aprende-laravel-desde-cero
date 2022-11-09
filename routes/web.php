@@ -68,5 +68,6 @@ Route::post('/contact', function(Request $request) {
 Route::get('/contacts/create', [ContactController::class, 'create'])->name('contacts.create');
 Route::get('/contacts/{contact}/edit', [ContactController::class, 'edit'])->name('contacts.edit');
 Route::put('/contacts/{contact}/edit', [ContactController::class, 'update'])->name('contacts.update');
+Route::get('/contacts/{contact}', [ContactController::class, 'show'])->name('contacts.show');
 Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
 Route::delete('/contacts/{contact}', [ContactController::class, 'destroy'])->name('contacts.destroy');
