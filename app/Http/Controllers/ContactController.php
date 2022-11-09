@@ -15,7 +15,12 @@ class ContactController extends Controller
      */
     public function index()
     {
-        return view('contacts.index',  ['contacts' => Contact::all()]);
+        // $contacts = Contact::query()->where('user_id', '=', auth()->id());
+        $contacts = Contact::where( 'user_id', '=', auth()->id() )->get();
+
+       // dd( compact('contacts')) ;
+        // return view('contacts.index',  ['contacts' => Contact::all()]);
+         return view('contacts.index', compact('contacts'));
     }
 
     /**
@@ -43,8 +48,10 @@ class ContactController extends Controller
             'name' => 'required',
             'email' => ['required', 'email'],
             'phone_number' => ['required', 'digits:9'],
-            'age' => 'required|numeric|min:1|max:25',
+            'age' => 'required|numeric|min:1|max:250',
         ]);
+
+        $data['user_id'] = auth()->id();
 
         Contact::create($data);
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,6 +20,8 @@ return new class extends Migration
             $table->string('phone_number');
             $table->string('email');
             $table->tinyInteger('age', unsigned: true);
+            // $table->foreign('user_id')->references('id')->on('users');
+            $table->foreignIdFor(User::class);
             $table->timestamps();
         });
     }
