@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Contact;
+use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -26,5 +28,8 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         //
+        // Gate::define('show-contact', function (User $user, Contact $contact) {
+        //     return $user->id === $contact->user_id;
+        // });
     }
 }
