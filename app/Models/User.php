@@ -42,6 +42,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+    // Con esta funcion estamos indicando uqe un usuario tiene muchos contactos
+    // en el modelo Contact tenemos que hacer la relacion alreves,
+    // Un contacto pertenece a un usuario
     public function contacts()
     {
         return $this->hasMany(Contact::class);
