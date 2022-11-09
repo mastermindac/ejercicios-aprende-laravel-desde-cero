@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Response;
 
 class ContactController extends Controller
 {
+
+    protected $rules = [
+        'name' => 'required',
+        'email' => ['required', 'email'],
+        'phone_number' => ['required', 'digits:9'],
+        'age' => 'required|numeric|min:1|max:250',
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -56,12 +63,7 @@ class ContactController extends Controller
         // Contact::create($request->all());
         // return response("Contact created");
         // dd("entra");
-        $data = $request->validate([
-            'name' => 'required',
-            'email' => ['required', 'email'],
-            'phone_number' => ['required', 'digits:9'],
-            'age' => 'required|numeric|min:1|max:250',
-        ]);
+        $data = $request->validate($this->rules);
 
 //para crear un usuario
 
@@ -164,12 +166,7 @@ class ContactController extends Controller
      */
     public function update(Request $request, Contact $contact)
     {
-        $data = $request->validate([
-            'name' => 'required',
-            'email' => ['required', 'email'],
-            'phone_number' => ['required', 'digits:9'],
-            'age' => 'required|numeric|min:1|max:25',
-        ]);
+        $data = $request->validate($this->rules);
 
         $this->authorize('update', $contact);
 
