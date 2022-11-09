@@ -24,6 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home', ['contacts' => Contact::all()]);
+
+        $contacts = auth()->user()->contacts;   
+        return view('home', ['contacts' => $contacts]);
     }
 }

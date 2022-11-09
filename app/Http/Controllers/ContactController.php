@@ -16,11 +16,21 @@ class ContactController extends Controller
     public function index()
     {
         // $contacts = Contact::query()->where('user_id', '=', auth()->id());
-        $contacts = Contact::where( 'user_id', '=', auth()->id() )->get();
+        
 
        // dd( compact('contacts')) ;
         // return view('contacts.index',  ['contacts' => Contact::all()]);
-         return view('contacts.index', compact('contacts'));
+
+//
+        // $contacts = Contact::where( 'user_id', '=', auth()->id() )->get();
+
+        // $contacts = auth()->user()->contacts()->get();  
+        $contacts = auth()->user()->contacts;  
+
+
+        
+
+        return view('contacts.index', compact('contacts'));
     }
 
     /**
@@ -51,17 +61,20 @@ class ContactController extends Controller
             'age' => 'required|numeric|min:1|max:250',
         ]);
 
-        $data['user_id'] = auth()->id();
+//para crear un usuario
 
-        Contact::create($data);
+        // $data['user_id'] = auth()->id();
+        // Contact::create($data);
+// o tambien
+        // Contact::create($data, [...$data, 'user_id' => auth()->id()]);
+// o tambien
+        auth()->user()->contacts()->create($data); // esta linea gracias a que le hemos añadido la funcion contacts al modelo User
 
         return redirect()->route('home');
 
         // if (is_null($request->get('name'))) {
         //     return back()->withErrors(['name' => 'Este campo es required']);
         // }
-
-
 
         if (is_null($request->get('name'))) {
 
