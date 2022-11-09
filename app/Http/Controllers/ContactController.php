@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreContactRequest;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response as HttpResponse;
@@ -11,12 +12,7 @@ use Illuminate\Support\Facades\Response;
 class ContactController extends Controller
 {
 
-    protected $rules = [
-        'name' => 'required',
-        'email' => ['required', 'email'],
-        'phone_number' => ['required', 'digits:9'],
-        'age' => 'required|numeric|min:1|max:250',
-    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -58,12 +54,12 @@ class ContactController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreContactRequest $request)
     {
         // Contact::create($request->all());
         // return response("Contact created");
         // dd("entra");
-        $data = $request->validate($this->rules);
+        $data = $request->validated();
 
 //para crear un usuario
 
@@ -164,9 +160,9 @@ class ContactController extends Controller
      * @param  \App\Models\Contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Contact $contact)
+    public function update(StoreContactRequest $request, Contact $contact)
     {
-        $data = $request->validate($this->rules);
+        $data = $request->validated();
 
         $this->authorize('update', $contact);
 
