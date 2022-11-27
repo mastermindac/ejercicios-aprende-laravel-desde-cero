@@ -22,10 +22,23 @@ Route::get('/', function () {
 
 // Ejercicio 1
 
+
 Route::get('/ejercicio1', function () {
     return "GET OK";
 });
 
 Route::post('/ejercicio1', function () {
     return "POST OK";
+});
+
+Route::delete('/ejercicio1', function () {
+    return "DELETE OK";
+});
+
+Route::patch('/ejercicio1', function () {
+    return "PATCH OK";
+});
+
+Route::put('/ejercicio1', function () {
+    return "PUT OK";
 });
