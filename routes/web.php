@@ -22,6 +22,7 @@ Route::get('/', function () {
 
 // Ejercicio 1
 
+
 Route::get('/ejercicio1', function () {
     return "GET OK";
 });
