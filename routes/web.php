@@ -57,16 +57,14 @@ Route::post('/ejercicio2/c', function (Request $request) {
 
     if ($discount == "SAVE5") {
         $price = $price - $price * 0.05;
-        return response()->json(['name' => $name, 'description' => $description, 'price'=>$price,'discount'=>5], 200);
-
+        return response()->json(['name' => $name, 'description' => $description, 'price' => $price, 'discount' => 5], 200);
     } elseif ($discount == "SAVE10") {
         $price = $price - $price * 0.10;
-        return response()->json(['name' => $name, 'description' => $description, 'price'=>$price,'discount'=>10], 200);
+        return response()->json(['name' => $name, 'description' => $description, 'price' => $price, 'discount' => 10], 200);
     } elseif ($discount == "SAVE15") {
-        $price = $price - $price * 0.15  ;
-        return response()->json(['name' => $name, 'description' => $description, 'price'=>$price,'discount'=>15], 200);
+        $price = $price - $price * 0.15;
+        return response()->json(['name' => $name, 'description' => $description, 'price' => $price, 'discount' => 15], 200);
     } else
-        return response()->json(['name' => $name, 'description' => $description, 'price'=>$price,'discount'=>0], 200);
-
+        return response()->json(['name' => $name, 'description' => $description, 'price' => $price, 'discount' => 0], 200);
 
     });
