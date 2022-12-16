@@ -41,3 +41,7 @@ Route::patch('/ejercicio1', function(){
 Route::delete('/ejercicio1', function(){
     return "DELETE OK";
 });
+
+Route::get('/problema-con-github', function(){
+    return "Tuve un problema con github para subir los cambios a mi repositorio, tuve que hacer otro commit para subir mis cambios";
+});
