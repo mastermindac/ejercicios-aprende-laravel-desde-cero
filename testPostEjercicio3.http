@@ -1,0 +1,17 @@
+POST http://localhost:8000/ejercicio3
+Content-type: application/json
+Accept: application/json
+
+{
+      "name": "Keyboard",
+  "description": "Mechanical RGB Keyboard",
+  "price": 56,
+  "has_battery": true,
+  "battery_duration": 56,
+  "colors": ["red", "white", "black"],
+  "dimensions": { "width": 78, "height": 5, "length": 20 },
+  "accessories": [
+    { "name": "prueba", "price": 20 },
+    { "name": "Keycaps", "price": 1 }
+  ]
+}
