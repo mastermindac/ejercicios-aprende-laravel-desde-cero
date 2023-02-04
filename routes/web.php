@@ -48,3 +48,29 @@ Route::post('/ejercicio2/b', function (Request $req) {
         "price" => $req->get('price')
     ]);
 });
+
+Route::post('/ejercicio2/c', function (Request $req) {
+
+    $discount = 0;
+
+    switch ($req->query('discount')) {
+        case 'SAVE5':
+            $discount = 5;
+            break;
+        case 'SAVE10':
+            $discount = 10;
+            break;
+        case 'SAVE15':
+            $discount = 15;
+            break;
+    }
+
+    $price = $req->get('price') - ($req->get('price') * ($discount / 100));
+
+    return Response::json([
+        "name" => $req->get('name'),
+        "description" => $req->get('description'),
+        "price" => $price,
+        "discount" => $discount
+    ]);
+});
