@@ -31,11 +31,21 @@ Route::post('/ejercicio1', function () {
 });
 
 Route::post('/ejercicio2/a', function(Request $req) {
-    return $req;
+    return Response::json([
+        "name" => $req->get('name'),
+        "description" => $req->get('description'),
+        "price" => $req->get('price')
+    ]);
 });
 
 Route::post('/ejercicio2/b', function(Request $req) {
     if ($req->get('price') < 0) {
         return Response::json(["message" => "Price can't be less than 0"])->setStatusCode(422);
+    }else{
+        return Response::json([
+            "name" => $req->get('name'),
+            "description" => $req->get('description'),
+            "price" => $req->get('price')
+        ]);
     }
 });
