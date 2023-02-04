@@ -30,7 +30,7 @@ Route::post('/ejercicio1', function () {
     return "POST OK";
 });
 
-Route::post('/ejercicio2/a', function(Request $req) {
+Route::post('/ejercicio2/a', function (Request $req) {
     return Response::json([
         "name" => $req->get('name'),
         "description" => $req->get('description'),
@@ -38,14 +38,13 @@ Route::post('/ejercicio2/a', function(Request $req) {
     ]);
 });
 
-Route::post('/ejercicio2/b', function(Request $req) {
+Route::post('/ejercicio2/b', function (Request $req) {
     if ($req->get('price') < 0) {
         return Response::json(["message" => "Price can't be less than 0"])->setStatusCode(422);
-    }else{
-        return Response::json([
-            "name" => $req->get('name'),
-            "description" => $req->get('description'),
-            "price" => $req->get('price')
-        ]);
     }
+    return Response::json([
+        "name" => $req->get('name'),
+        "description" => $req->get('description'),
+        "price" => $req->get('price')
+    ]);
 });
