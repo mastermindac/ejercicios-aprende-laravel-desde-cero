@@ -29,3 +29,31 @@ Route::get('/ejercicio1', function () {
 Route::post('/ejercicio1', function () {
     return "POST OK";
 });
+Route::post('/ejercicio2/a', function (Request $request) {
+
+    return Response::json($request)->setStatusCode(200);
+});
+Route::post('/ejercicio2/b', function (Request $request) {
+    if ($request->get('price') < 0) {
+        return Response::json(["message" => "Price can't be less than 0"])->setStatusCode(422);
+    }
+    return Response::json($request)->setStatusCode(200);
+});
+
+Route::post('/ejercicio2/c', function (Request $request) {
+    $discount = 0;
+    if ($request->query('discount') == "SAVE5") {
+        $discount = 5;
+    } else if ($request->query('discount') == "SAVE10") {
+        $discount = 10;
+    } else if ($request->query('discount') == "SAVE15") {
+        $discount = 15;
+    }
+    $price= $request->get('price')*(1-$discount/100);
+    return Response::json([
+        'name' => $request->get('name'),
+        'description' => $request->get('description'),
+        'price' => $price,
+        'discount' => $discount,
+    ])->setStatusCode(200);
+});
