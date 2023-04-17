@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductValidation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
@@ -94,3 +95,5 @@ Route::get('/ejercicio2/c', function (Request $request) {
     }
 
 );
+
+Route::post('/ejercicio3', [ProductValidation::class, 'store'])->name('products.store');
