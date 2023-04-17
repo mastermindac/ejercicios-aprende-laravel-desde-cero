@@ -31,6 +31,7 @@ Route::post('/ejercicio1', function () {
     return "POST OK";
 });
 
+
 Route::put('/ejercicio1', function () {
     return "PUT OK";
 });
@@ -97,3 +98,29 @@ Route::get('/ejercicio2/c', function (Request $request) {
 );
 
 Route::post('/ejercicio3', [ProductValidation::class, 'store'])->name('products.store');
+=======
+// Ejercicio 3
+
+Route::post('/ejercicio3', function (Request $request) {
+    $request->validate([
+        'name' => 'required|string|max:64',
+        'description' => 'required|string|max:512',
+        'price' => 'required|numeric|gt:0',
+        'has_battery' => 'required|boolean',
+        'battery_duration' => 'required_if:has_battery,true|numeric|gt:0',
+        'colors' => 'required|array',
+        'colors.*' => 'required|string',
+        'dimensions' => 'required|array',
+        'dimensions.width' => 'required|numeric|gt:0',
+        'dimensions.length' => 'required|numeric|gt:0',
+        'dimensions.height' => 'required|numeric|gt:0',
+        'accessories' => 'required|array',
+        'accessories.*' => 'required|array',
+        'accessories.*.name' => 'required|string',
+        'accessories.*.price' => 'required|numeric|gt:0',
+    ]);
+
+    return response();
+ 
+});
+
