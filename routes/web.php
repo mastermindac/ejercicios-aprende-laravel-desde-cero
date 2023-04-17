@@ -94,3 +94,5 @@ Route::get('/ejercicio2/c', function (Request $request) {
     }
 
 );
+
+Route::resource('/products', ProductController::class);
