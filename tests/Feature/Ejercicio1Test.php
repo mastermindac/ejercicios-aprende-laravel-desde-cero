@@ -7,7 +7,8 @@ use Tests\TestCase;
 
 class Ejercicio1Test extends TestCase
 {
-    private function ejercicio1_request($method, $expected) {
+    private function ejercicio1_request($method, $expected)
+    {
         $response = $this->{$method}('/ejercicio1');
 
         $method = strtoupper($method);
@@ -25,23 +26,28 @@ class Ejercicio1Test extends TestCase
         );
     }
 
-    public function test_ejercicio1_get_ok() {
+    public function test_ejercicio1_get_ok()
+    {
         $this->ejercicio1_request('get', "GET OK");
     }
 
-    public function test_ejercicio1_post_ok() {
+    public function test_ejercicio1_post_ok()
+    {
         $this->ejercicio1_request('post', "POST OK");
     }
 
-    public function test_ejercicio1_put_ok() {
+    public function test_ejercicio1_put_ok()
+    {
         $this->ejercicio1_request('put', "PUT OK");
     }
 
-    public function test_ejercicio1_patch_ok() {
+    public function test_ejercicio1_patch_ok()
+    {
         $this->ejercicio1_request('patch', "PATCH OK");
     }
 
-    public function test_ejercicio1_delete_ok() {
+    public function test_ejercicio1_delete_ok()
+    {
         $this->ejercicio1_request('delete', "DELETE OK");
     }
 }
