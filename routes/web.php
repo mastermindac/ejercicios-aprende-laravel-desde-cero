@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\ProductController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -11,8 +8,8 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
 |
 */
 
@@ -20,12 +17,25 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Ejercicio 1
+Route::get('/route', function () {
+    return "test";
+});
 
+Route::get('/route/post', function () {
+    return "it works";
+});
 Route::get('/ejercicio1', function () {
     return "GET OK";
 });
-
 Route::post('/ejercicio1', function () {
     return "POST OK";
+});
+Route::put('/ejercicio1', function () {
+    return "PUT OK";
+});
+Route::patch('/ejercicio1', function () {
+    return "PATCH OK";
+});
+Route::delete('/ejercicio1', function () {
+    return "DELETE OK";
 });
