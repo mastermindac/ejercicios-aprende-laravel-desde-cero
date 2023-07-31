@@ -38,4 +38,5 @@ Route::patch('/ejercicio1', function () {
 });
 Route::delete('/ejercicio1', function () {
     return "DELETE OK";
+    
 });
