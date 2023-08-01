@@ -4,6 +4,7 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\Rule;
 
 /*
 |--------------------------------------------------------------------------
