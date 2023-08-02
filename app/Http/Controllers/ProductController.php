@@ -16,8 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = auth()->user()->products;
-        return Response::json(["product" => $products]);
+        return Response::json(["product" => auth()->user()->products]);
     }
     
 
@@ -28,7 +27,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view("products.create");
     }
 
     /**
@@ -37,19 +36,19 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProductRequest $request)
+    public function store(StoreProductRequest $request , Product $product)
     {
         auth()->user()->products()->create($request->validate());
 
         return Response::json([
             'message' => "Product created successfully",
             "product" => [
-                'id' => $request->id(),
-                'name' => $request->name(),
-                'description' => $request->description(),
-                'price' => $request->price(),
-                "created_at" => $request->created_at(),
-                "updated_at" => $request->updated_at(),
+                'id' => $product->id,
+                'name' => $product->name,
+                'description' => $product->description,
+                'price' => $product->price,
+                "created_at" => $product->created_at,
+                "updated_at" => $product->updated_at,
             ],
         ]);
     }
@@ -62,6 +61,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        $this->authorize('view', $product);
         return Response::json(["product" => $product]);
     }
 
@@ -73,7 +73,9 @@ class ProductController extends Controller
      */
     public function edit(StoreProductRequest $request ,Product $product)
     {
-        //
+        $this->authorize('update', $product);
+
+        return view('product.edit' , ['contact' => $product]);
     }
 
     /**
