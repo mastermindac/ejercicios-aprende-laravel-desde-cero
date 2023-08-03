@@ -24,7 +24,7 @@ class StoreProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:64',
+            'name' => ['required','string' ,'max:64'],
             'description' => ['required', 'string','max:512'],
             'price' => ['required', 'numeric', 'gt:0'],
         ];

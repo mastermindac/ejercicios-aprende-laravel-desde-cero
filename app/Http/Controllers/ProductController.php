@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
 class ProductController extends Controller
@@ -16,7 +15,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Response::json(["product" => auth()->user()->products]);
+        $products = auth()->user()->products;
+        return Response::json(["product" => $products]);
     }
     
 
@@ -36,20 +36,13 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProductRequest $request , Product $product)
+    public function store(StoreProductRequest $request)
     {
-        auth()->user()->products()->create($request->validate());
+        $product = auth()->user()->products()->create($request->validated());
 
         return Response::json([
             'message' => "Product created successfully",
-            "product" => [
-                'id' => $product->id,
-                'name' => $product->name,
-                'description' => $product->description,
-                'price' => $product->price,
-                "created_at" => $product->created_at,
-                "updated_at" => $product->updated_at,
-            ],
+            "product" => $product,
         ]);
     }
 
