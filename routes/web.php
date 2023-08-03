@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 
@@ -16,9 +17,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+
 
 // Ejercicio 1
 
@@ -29,3 +33,5 @@ Route::get('/ejercicio1', function () {
 Route::post('/ejercicio1', function () {
     return "POST OK";
 });
+
+Route::resource('products' , ProductController::class);

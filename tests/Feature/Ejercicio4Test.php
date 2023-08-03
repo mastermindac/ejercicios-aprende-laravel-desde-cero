@@ -69,91 +69,91 @@ class Ejercicio4Test extends TestCase
     /**
      * @depends test_usuario_puede_crear_producto
      */
-    public function test_usuario_puede_ver_producto_creado_por_otro_usuario()
-    {
-        [$user1, $user2] = User::factory(2)->create();
+     public function test_usuario_puede_ver_producto_creado_por_otro_usuario()
+     {
+         [$user1, $user2] = User::factory(2)->create();
         
-        $product = Product::create([
-            'name' => 'Keyboard',
-            'description' => 'Mechanical keyboard',
-            'price' => 200,
-            'user_id' => $user1->id,
-        ]);
+         $product = Product::create([
+             'name' => 'Keyboard',
+             'description' => 'Mechanical keyboard',
+             'price' => 200,
+             'user_id' => $user1->id,
+         ]);
 
-        $response = $this->actingAs($user2)->get(route('products.show', $product->id));
+         $response = $this->actingAs($user2)->get(route('products.show', $product->id));
 
-        $response->assertOk()->assertExactJson([
-            'product' => $product->toArray()
-        ]);
-    }
+         $response->assertOk()->assertExactJson([
+             'product' => $product->toArray()
+         ]);
+     }
 
     /**
      * @depends test_usuario_puede_crear_producto
      */
-    public function test_usuario_puede_editar_producto()
-    {
-        $user = User::factory()->createOne();
+     public function test_usuario_puede_editar_producto()
+     {
+         $user = User::factory()->createOne();
         
-        $product = Product::create([
-            'name' => 'Keyboard',
-            'description' => 'Mechanical keyboard',
-            'price' => 200,
-            'user_id' => $user->id,
-        ]);
+         $product = Product::create([
+             'name' => 'Keyboard',
+             'description' => 'Mechanical keyboard',
+             'price' => 200,
+             'user_id' => $user->id,
+         ]);
 
-        $data =  [
-            'name' => 'Updated name',
-            'description' => 'Updated description',
-            'price' => 400,
-        ];
+         $data =  [
+             'name' => 'Updated name',
+             'description' => 'Updated description',
+             'price' => 400,
+         ];
 
-        $response = $this->actingAs($user)->put(route('products.update', $product->id), $data);
+         $response = $this->actingAs($user)->put(route('products.update', $product->id), $data);
 
-        $response->assertOk()->assertExactJson([
-            'message' => 'Product updated successfully',
-            'product' => [...$product->toArray(), ...$data]
-        ]);
-    }
+         $response->assertOk()->assertExactJson([
+             'message' => 'Product updated successfully',
+             'product' => [...$product->toArray(), ...$data]
+         ]);
+     }
 
     /**
      * @depends test_usuario_puede_crear_producto
      */
-    public function test_usuario_puede_borrar_producto()
-    {
-        $user = User::factory()->createOne();
+     public function test_usuario_puede_borrar_producto()
+     {
+         $user = User::factory()->createOne();
         
-        $product = Product::create([
-            'name' => 'Keyboard',
-            'description' => 'Mechanical keyboard',
-            'price' => 200,
-            'user_id' => $user->id,
-        ]);
+         $product = Product::create([
+             'name' => 'Keyboard',
+             'description' => 'Mechanical keyboard',
+             'price' => 200,
+             'user_id' => $user->id,
+         ]);
 
-        $response = $this->actingAs($user)->delete(route('products.destroy', $product->id));
+         $response = $this->actingAs($user)->delete(route('products.destroy', $product->id));
 
-        $response->assertOk()->assertExactJson([
-            'message' => 'Product deleted successfully',
-            'product' => [...$product->toArray()]
-        ]);
-    }
+         $response->assertOk()->assertExactJson([
+             'message' => 'Product deleted successfully',
+             'product' => [...$product->toArray()]
+         ]);
+     }
 
     /**
      * @depends test_usuario_puede_crear_producto
      */
-    public function test_solo_usuario_propietario_del_producto_puede_borrarlo_o_editarlo()
-    {
-        [$user1, $user2] = User::factory(2)->create();
+     public function test_solo_usuario_propietario_del_producto_puede_borrarlo_o_editarlo()
+     {
+         [$user1, $user2] = User::factory(2)->create();
         
-        $product = Product::create([
-            'name' => 'Keyboard',
-            'description' => 'Mechanical keyboard',
-            'price' => 200,
-            'user_id' => $user1->id,
-        ]);
+         $product = Product::create([
+             'name' => 'Keyboard',
+             'description' => 'Mechanical keyboard',
+             'price' => 200,
+             'user_id' => $user1->id,
+         ]);
 
-        $response = $this->actingAs($user2)->delete(route('products.destroy', $product->id));
-        $response->assertForbidden();
-        $response = $this->actingAs($user2)->delete(route('products.update', $product->id), []);
-        $response->assertForbidden();
-    }
+         $response = $this->actingAs($user2)->delete(route('products.destroy', $product->id));
+         $response->assertForbidden();
+         $response = $this->actingAs($user2)->delete(route('products.update', $product->id), []);
+         $response->assertForbidden();
+     }
 }
