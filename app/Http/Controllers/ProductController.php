@@ -15,8 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = auth()->user()->products;
-        return Response::json(["product" => $products]);
+        return Response::json(["products" => auth()->user()->products]);
     }
     
 
@@ -54,7 +53,6 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        $this->authorize('view', $product);
         return Response::json(["product" => $product]);
     }
 
