@@ -16,9 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return response()->json([
-            'product' => auth()->user()->products
-        ]);
+        return response()->json(['products' => auth()->user()->products]);
     }
 
     /**
@@ -46,7 +44,7 @@ class ProductController extends Controller
 
         return response()->json([
             'message' => 'Product created successfully',
-            'product' => $product,
+            'product' => $product
         ]);
     }
 
@@ -60,9 +58,7 @@ class ProductController extends Controller
     {
         $this->authorize('view', $product);
 
-        return response()->json([
-            'product' => $product,
-        ]);
+        return response()->json(compact('product'));
     }
 
     /**
@@ -85,13 +81,13 @@ class ProductController extends Controller
      */
     public function update(StoreProductRequest $request, Product $product)
     {
-        $data = auth()->user()->products()->create($request->validated());
         $this->authorize('update', $product);
-        $product->update($data);
+        $product = auth()->user()->products()->create($request->validated());
+        $product->update($product);
 
         return response()->json([
             'message' => 'Product update successfully',
-            'product' => $product,
+            'product' => $product
         ]);
     }
 

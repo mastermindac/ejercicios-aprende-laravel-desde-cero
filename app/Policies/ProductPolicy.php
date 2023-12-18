@@ -31,7 +31,7 @@ class ProductPolicy
     public function view(User $user, Product $product)
     {
         //autoriza a ver el producto
-        return $user->id === $product->user_id;
+        return true; 
     }
 
     /**

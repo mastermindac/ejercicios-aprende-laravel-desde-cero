@@ -13,7 +13,7 @@ class Product extends Model
         'name',
         'description',
         'price',
-        'user:id',
+        'user_id',
     ];
 
     public function user() { 
