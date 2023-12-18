@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    protected $productRules = [
+        'name' => 'required | string | max:64',
+        'description' => 'required | string | max: 512',
+        'price' => 'required | numeric | gt:0',
+    ];
    
     /**
      * Display a listing of the resource.
@@ -82,11 +87,13 @@ class ProductController extends Controller
     public function update(StoreProductRequest $request, Product $product)
     {
         $this->authorize('update', $product);
-        $product = auth()->user()->products()->create($request->validated());
-        $product->update($product);
+
+        $data=$request->validated();
+
+        $product->update($data);
 
         return response()->json([
-            'message' => 'Product update successfully',
+            'message' => 'Product updated successfully',
             'product' => $product
         ]);
     }
