@@ -20,12 +20,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Ejercicio 1
+// Ejercicio 4 
 
-Route::get('/ejercicio1', function () {
-    return "GET OK";
-});
-
-Route::post('/ejercicio1', function () {
-    return "POST OK";
-});
+Route::resource('products', ProductController::class);
